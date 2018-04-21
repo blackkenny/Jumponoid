@@ -5,28 +5,11 @@ require("camera")
 require("player")
 require("map_loader")
 
--- let's calculate some constants!
--- jump heights
-local maxjumpH = 16*4
-local minjumpH = 16*1
--- jump time to apex
-local maxjumpT = 0.4
--- gravity
-g = (2*maxjumpH)/(maxjumpT^2)
--- initial jump velocity
-initjumpV = math.sqrt(2*g*maxjumpH)
--- jump termination velocity
-termjumpV = math.sqrt(initjumpV^2 + 2*-g*(maxjumpH - minjumpH))
--- jump termination time
-termjumpT = maxjumpT - (2*(maxjumpH - minjumpH)/(initjumpV + termjumpV))
--- default jump termination
-jumpTerm = termjumpV
-
 game = require("game")
 
 -- fizz module
 fizz = require("fizzx.fizz")
-fizz.setGravity(0, g)
+fizz.setGravity(0, G)
 
 -- This is practically the init function, everything is being loaded here,
 -- as the name implies

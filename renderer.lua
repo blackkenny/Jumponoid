@@ -12,7 +12,7 @@ function render()
 	local mem = collectgarbage('count')
 	mem = math.ceil(mem)
 	local jt = "instant"
-	if jumpTerm > 0 then
+	if JUMPTERM > 0 then
 		jt = "gradual"
 	end
 end
