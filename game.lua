@@ -1,3 +1,5 @@
+require("map_loader")
+
 local game = {
 	isStarted = false,
 -- update interval in seconds
@@ -5,7 +7,11 @@ local game = {
 	-- maximum frame skip
 	maxsteps = 5,
 	-- accumulator
-	accum = 0
+	accum = 0,
+
+	playerStartLocationX = 0,
+
+	playerStartLocationY = 0,
 }
 game.__index = game
 
@@ -73,5 +79,10 @@ end
 function game:start()
 	game.isStarted = true
 end
+
+function game:getStartLocation()
+   return game.playerStartLocationX, game.playerStartLocationY
+end
+
 
 return game

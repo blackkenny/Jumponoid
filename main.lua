@@ -3,7 +3,6 @@ require("renderer")
 require("controls")
 require("camera")
 require("player")
-require("map_loader")
 
 game = require("game")
 
@@ -14,8 +13,8 @@ fizz.setGravity(0, G)
 -- This is practically the init function, everything is being loaded here,
 -- as the name implies
 function love.load()
-	game.load_level()
-	player = Player:create(0,0)
+   game:load_level()
+   player = Player:create(game:getStartLocation())
 end
 
 function love.draw()
@@ -23,7 +22,7 @@ function love.draw()
 		love.graphics.print("Press Space to start a new game", 10, 10)
 	else
 		set_camera(player.y)
-		render()
+		renderlino()
 	end
 end
 
