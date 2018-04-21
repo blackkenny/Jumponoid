@@ -1,47 +1,35 @@
-function render(maps)
-	--white
-	love.graphics.setColor(1, 1, 1)
-	for i = 1, #maps do
-		render_map(maps[i])
+function render()
+	local lg = love.graphics
+	for i, v in ipairs(fizz.statics) do
+		drawObject(v, .5, .5, .5)
+	end
+	for i, v in ipairs(fizz.dynamics) do
+		drawObject(v, 1, .5, .5)
+	end
+	for i, v in ipairs(fizz.kinematics) do
+		drawObject(v, 1, .5, 1)
+	end
+	local mem = collectgarbage('count')
+	mem = math.ceil(mem)
+	local jt = "instant"
+	if jumpTerm > 0 then
+		jt = "gradual"
 	end
 end
 
-function render_map(map)
-	for i = 1, #map do
-		render_line(map[i], i)
+function drawObject(v, r, g, b)
+	local lg = love.graphics
+	if v.shape == 'rect' then
+		local x, y, w, h = v.x, v.y, v.hw, v.hh
+		lg.setColor(r, g, b, 255)
+		lg.rectangle("line", x - w, y - h, w*2, h*2)
+	elseif v.shape == 'circle' then
+		local x, y, radius = v.x, v.y, v.r
+		lg.setColor(r, g, b, 255)
+		lg.circle("fill", x, y, radius, 32)
+	elseif v.shape == 'line' then
+		local x, y, x2, y2 = v.x, v.y, v.x2, v.y2
+		lg.setColor(r, g, b, 255)
+		lg.line(x, y, x2, y2)
 	end
-end
-
-function render_line(line, lineNum)
-	--1 = filled block
-	--2 = outlined block
-	
-	local y = (lineNum - 1) * BLOCKSIZE
-	
-	for i = 1, #line do
-		local blockType = line[i]
-		local x = (i - 1) * BLOCKSIZE
-		
-		if blockType == 1 then
-			love.graphics.rectangle('fill', x, y, BLOCKSIZE, BLOCKSIZE)
-		elseif blockType == 2 then
-			love.graphics.rectangle('line', x, y, BLOCKSIZE, BLOCKSIZE)
-		end
-	end
-end
-
-
-function render_player()
-	--red
-	love.graphics.setColor(1, 0, 0)
-	love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
-end
-
-function render_blocks()
-end
-
-function render_paddle()
-end
-
-function render_ball()
 end
