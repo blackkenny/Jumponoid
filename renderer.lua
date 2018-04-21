@@ -1,4 +1,6 @@
 function render(maps)
+	--white
+	love.graphics.setColor(1, 1, 1)
 	for i = 1, #maps do
 		render_map(maps[i])
 	end
@@ -30,6 +32,9 @@ end
 
 
 function render_player()
+	--red
+	love.graphics.setColor(1, 0, 0)
+	love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
 end
 
 function render_blocks()
