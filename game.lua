@@ -38,40 +38,19 @@ function game.load_level()
 	
 	local map = load_map()
 	
-	h = 35
-	w = #map/h
+	map_height = 35
+	map_width = #map/map_height
+	local ptr = 1
 	
-	local shapes =
-	{
-		-- solid block
-		[2] = {'static', 'rect', 0, 0, BLOCKSIZE, BLOCKSIZE}
-	}
-	
-	for x = 0, w - 1 do
-		for y = 0, h - 1 do
-			local i = map[y*w + x + 1]
-			local wx, wy = x*BLOCKSIZE / 2, y*BLOCKSIZE / 2
-			local s2 = shapes[i]
-			if s2 then
-				-- copy
-				local t = { unpack(s2) }
-				local s = table.remove(t, 1)
-				-- transform
-				t[2] = t[2] + wx
-				t[3] = t[3] + wy
-				if t[1] == "line" then
-					t[4] = t[4] + wx
-					t[5] = t[5] + wy
-				end
-				-- create
-				local shape
-				if s == 'dynamic' then
-					shape = fizz.addDynamic(unpack(t))
-					shape.friction = 0.1
-				else
-					shape = fizz.addStatic("rect", t[2] * 2, t[3] * 2, 20, 20)
-				end
+	for i = 1, map_height do
+		for j = 1, map_width do
+			local tiletype = map[ptr]
+			local x = (j * BLOCKSIZE) - BLOCKSIZE / 2
+			local y = (i * BLOCKSIZE) - BLOCKSIZE / 2
+			if tiletype == 2 then
+				fizz.addStatic("rect", x, y, BLOCKSIZE / 2, BLOCKSIZE / 2)
 			end
+			ptr = ptr + 1
 		end
 	end
 end
