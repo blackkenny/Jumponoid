@@ -50,7 +50,7 @@ function game.load_level()
 	for x = 0, w - 1 do
 		for y = 0, h - 1 do
 			local i = map[y*w + x + 1]
-			local wx, wy = x*BLOCKSIZE, y*BLOCKSIZE
+			local wx, wy = x*BLOCKSIZE / 2, y*BLOCKSIZE / 2
 			local s2 = shapes[i]
 			if s2 then
 				-- copy
@@ -69,7 +69,7 @@ function game.load_level()
 					shape = fizz.addDynamic(unpack(t))
 					shape.friction = 0.1
 				else
-					shape = fizz.addStatic(unpack(t))
+					shape = fizz.addStatic("rect", t[2] * 2, t[3] * 2, 20, 20)
 				end
 			end
 		end

@@ -1,6 +1,7 @@
 function render()
 	local lg = love.graphics
 	for i, v in ipairs(fizz.statics) do
+		table.foreach(v, print)
 		drawObject(v, .5, .5, .5)
 	end
 	for i, v in ipairs(fizz.dynamics) do

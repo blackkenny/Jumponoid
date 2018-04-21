@@ -22,7 +22,7 @@ function love.draw()
 		love.graphics.print("Press Space to start a new game", 10, 10)
 	else
 		set_camera(player.y)
-		renderlino()
+		render()
 	end
 end
 
