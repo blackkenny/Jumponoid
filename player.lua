@@ -1,8 +1,8 @@
 Player = {}
 Player.__index = Player
 
-function Player:create (x, y)
-	local player = fizz.addDynamic('rect', x*BLOCKSIZE, y*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE*2)
+function Player:create (x, y)   
+    local player = fizz.addDynamic('rect', x*BLOCKSIZE, y*BLOCKSIZE, BLOCKSIZE / 2, BLOCKSIZE / 2)
 	player.friction = 0.15
 	-- player flags
 	player.grounded = false
