@@ -1,6 +1,8 @@
 Ball = {}
 Ball.__index = Ball
 
+source = love.audio.newSource( "sounds/explosion.wav", "static" )
+
 function Ball:create(fizz, y, onDestructibleCollision)
 	local ball = fizz.addDynamic('circle', 20, y, 8)
 	ball.bounce = 1
@@ -22,6 +24,11 @@ function Ball:onCollide(b, nx, ny, pen)
 
 	if b.isDestructible then
 		self:onDestructibleCollision(b)
+		love.audio.play( source )
+	end
+
+	if b.isGoal then
+		return true
 	end
 
 	return true

@@ -1,5 +1,7 @@
 Player = {}
 Player.__index = Player
+jumpSound = love.audio.newSource( "sounds/jump.wav", "static" )
+doubleJumpSound = love.audio.newSource( "sounds/doublejump.wav", "static" )
 
 local isJumpButtonReady = true
 
@@ -19,7 +21,9 @@ function Player:create (x, y)
 end
 
 function Player:onCollide(b, nx, ny, pen)
-	--wall jumps in here?
+	if b.isGoal then
+		return false
+	end
 	return true
 end
 
@@ -71,13 +75,18 @@ function Player:checkInput(dt)
 	if jump and not self.doubleJumping and self.isMidAir and isJumpButtonReady then
 		self.doubleJumping = true
 		vy = -INITJUMPV
-		isJumpButtonReady = false
+		isJumpButtonReady = false 
+
+		love.audio.play( doubleJumpSound )
+
+		
 	elseif jump and not self.jumping and self.grounded and isJumpButtonReady then
 		-- initiating a jump
 		self.jumping = true
 		self.isMidAir = true
 		vy = -INITJUMPV
 		isJumpButtonReady = false
+		love.audio.play( jumpSound )
 	elseif not jump and self.jumping and not self.grounded then
 		-- terminating a jump
 		if self.yv < 0 and self.yv < -JUMPTERM then

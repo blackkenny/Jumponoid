@@ -7,16 +7,16 @@ game = require("game")
 menu = require("menu")
 
 function love.load()
-   game:load_level(1)
+   game:load_levels()
    player = Player:create(game:getStartLocation())
 end
 
 function love.draw()
 	if not game.isStarted then
-		love.graphics.setBackgroundColor( 0, 0, 0 )
+		love.graphics.setBackgroundColor( 137/255, 88/255, 66/255 )
 		menu.draw()
 	else
-		love.graphics.setBackgroundColor( 102/255, 149/255, 244/255 )
+		love.graphics.setBackgroundColor( 137/255, 104/255, 90/255 )
 		game.camera:setViewport(player.y)
 		render()
 	end
