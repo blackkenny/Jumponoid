@@ -6,7 +6,7 @@ COMPANY_NAME := "Ludum Dare"
 GAME_NAME := "Jumponoid"
 
 $(GAME_NAME).love: main.lua conf.lua
-	zip -9 -r $(GAME_NAME).love *.lua fonts/pac.ttf
+	zip -9 -r $(GAME_NAME).love *.lua fonts/*.ttf images/*.png
 
 #I will need to make a lot of different targets for individual distros
 lin: $(GAME_NAME).love

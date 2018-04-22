@@ -28,7 +28,7 @@ function drawObject(v, r, g, b)
 		local x, y, w, h = v.x, v.y, v.hw, v.hh
 		if v.isPlayer then 
 			lg.setColor(1, 1, 1, 255)
-			drawImage(playerImage, x, y, w * 2, h * 2)
+			drawImage(playerImage, x, y - BLOCKSIZE / 5, w * 2, h * 2)
 		else
 			lg.setColor(1, 0, 0, 255)
 			drawImage(blockImage, x, y, w * 2, h * 2)
