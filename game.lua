@@ -1,6 +1,5 @@
 require("map_loader")
-
-ball = require("ball")
+require("ball")
 
 fizz = require("fizzx.fizz")
 fizz.setGravity(0, G)
@@ -30,8 +29,6 @@ function game:update(dt)
 
 		-- update the simulation
 		fizz.update(self.interval)
-		ball:update(dt)
-
 		self.accum = self.accum - self.interval
 		steps = steps + 1
 		if steps >= self.maxsteps then
@@ -84,7 +81,7 @@ end
 
 function game:start()
 	game.isStarted = true
-	ball:spawn(game.playerStartLocationY)
+	ball = Ball:create(fizz, game.playerStartLocationY)
 end
 
 function game:getStartLocation()
