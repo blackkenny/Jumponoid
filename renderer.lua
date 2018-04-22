@@ -1,3 +1,6 @@
+player = love.graphics.newImage( "images/player.png" )
+block = love.graphics.newImage( "images/block.png" )
+
 function render()
 	local lg = love.graphics
 	for i, v in ipairs(fizz.statics) do
@@ -22,8 +25,9 @@ function drawObject(v, r, g, b)
 	local lg = love.graphics
 	if v.shape == 'rect' then
 		local x, y, w, h = v.x, v.y, v.hw, v.hh
-		lg.setColor(r, g, b, 255)
-		lg.rectangle("line", x - w, y - h, w*2, h*2)
+		drawBlock(x, y, w * 2, h * 2)
+		-- lg.setColor(r, g, b, 255)
+		-- lg.rectangle("line", x - w, y - h, w*2, h*2)
 	elseif v.shape == 'circle' then
 		local x, y, radius = v.x, v.y, v.r
 		lg.setColor(r, g, b, 255)
@@ -34,3 +38,17 @@ function drawObject(v, r, g, b)
 		lg.line(x, y, x2, y2)
 	end
 end
+
+function drawBlock(x, y, width, height)
+	local lg = love.graphics
+	-- print("Width: " .. width)
+	print("X: " .. x)
+	local scaling = BLOCKSIZE / 32
+	print("Scaling: " .. scaling)
+	-- print("BLOCKSIZE: " .. BLOCKSIZE)
+	-- print("How many times: " .. width / BLOCKSIZE)
+	for i = 0, width / BLOCKSIZE -1 do
+		-- print("x: " .. x .. "i: " .. i)
+		lg.draw(block, (x - width / 2) + i * BLOCKSIZE, y - height/2, 0, scaling, scaling, 0, 0, 0, 0)
+	end
+end 

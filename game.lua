@@ -100,7 +100,7 @@ end
 
 function game:start()
 	self.isStarted = true
-	ball = Ball:create(fizz, game.playerStartLocationY, self.onDestructibleCollision)
+	-- ball = Ball:create(fizz, game.playerStartLocationY, self.onDestructibleCollision)
 end
 
 function game:getStartLocation()
