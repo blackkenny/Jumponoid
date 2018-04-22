@@ -16,7 +16,7 @@ function love.draw()
 		love.graphics.setBackgroundColor( 0, 0, 0 )
 		menu.draw()
 	else
-		love.graphics.setBackgroundColor( 135/255, 206/255, 235/255 )
+		love.graphics.setBackgroundColor( 102/255, 149/255, 244/255 )
 		game.camera:setViewport(player.y)
 		render()
 	end

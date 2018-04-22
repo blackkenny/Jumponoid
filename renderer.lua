@@ -1,4 +1,4 @@
-player = love.graphics.newImage( "images/player.png" )
+playerImage = love.graphics.newImage( "images/player.png" )
 block = love.graphics.newImage( "images/block.png" )
 
 function render()
@@ -25,7 +25,11 @@ function drawObject(v, r, g, b)
 	local lg = love.graphics
 	if v.shape == 'rect' then
 		local x, y, w, h = v.x, v.y, v.hw, v.hh
-		drawBlock(x, y, w * 2, h * 2)
+		if v.isPlayer then 
+			drawImage(playerImage, x, y, w * 2, h * 2)
+		else
+			drawImage(block, x, y, w * 2, h * 2)
+		end
 		-- lg.setColor(r, g, b, 255)
 		-- lg.rectangle("line", x - w, y - h, w*2, h*2)
 	elseif v.shape == 'circle' then
@@ -39,7 +43,7 @@ function drawObject(v, r, g, b)
 	end
 end
 
-function drawBlock(x, y, width, height)
+function drawImage(image, x, y, width, height)
 	local lg = love.graphics
 	-- print("Width: " .. width)
 	print("X: " .. x)
@@ -49,6 +53,6 @@ function drawBlock(x, y, width, height)
 	-- print("How many times: " .. width / BLOCKSIZE)
 	for i = 0, width / BLOCKSIZE -1 do
 		-- print("x: " .. x .. "i: " .. i)
-		lg.draw(block, (x - width / 2) + i * BLOCKSIZE, y - height/2, 0, scaling, scaling, 0, 0, 0, 0)
+		lg.draw(image, (x - width / 2) + i * BLOCKSIZE, y - height/2, 0, scaling, scaling, 0, 0, 0, 0)
 	end
 end 
