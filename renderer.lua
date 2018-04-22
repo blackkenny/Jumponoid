@@ -26,8 +26,10 @@ function drawObject(v, r, g, b)
 	if v.shape == 'rect' then
 		local x, y, w, h = v.x, v.y, v.hw, v.hh
 		if v.isPlayer then 
+			lg.setColor(1, 1, 1, 255)
 			drawImage(playerImage, x, y, w * 2, h * 2)
 		else
+			lg.setColor(1, 0, 0, 255)
 			drawImage(block, x, y, w * 2, h * 2)
 		end
 		-- lg.setColor(r, g, b, 255)
@@ -45,14 +47,8 @@ end
 
 function drawImage(image, x, y, width, height)
 	local lg = love.graphics
-	-- print("Width: " .. width)
-	print("X: " .. x)
-	local scaling = BLOCKSIZE / 32
-	print("Scaling: " .. scaling)
-	-- print("BLOCKSIZE: " .. BLOCKSIZE)
-	-- print("How many times: " .. width / BLOCKSIZE)
+	local scaling = BLOCKSIZE / 64
 	for i = 0, width / BLOCKSIZE -1 do
-		-- print("x: " .. x .. "i: " .. i)
 		lg.draw(image, (x - width / 2) + i * BLOCKSIZE, y - height/2, 0, scaling, scaling, 0, 0, 0, 0)
 	end
 end 
