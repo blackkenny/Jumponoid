@@ -9,7 +9,6 @@ menu = require("menu")
 
 function love.load()
    game:load_level()
-   game:spawnBall()
    player = Player:create(game:getStartLocation())
 end
 

@@ -1,5 +1,7 @@
 require("map_loader")
 
+ball = require("ball")
+
 fizz = require("fizzx.fizz")
 fizz.setGravity(0, G)
 
@@ -15,8 +17,6 @@ local game = {
 	playerStartLocationX = 0,
 
 	playerStartLocationY = 0,
-
-	ball = nil
 }
 game.__index = game
 
@@ -30,6 +30,7 @@ function game:update(dt)
 
 		-- update the simulation
 		fizz.update(self.interval)
+		-- self.ball.update(dt)
 
 		self.accum = self.accum - self.interval
 		steps = steps + 1
@@ -63,27 +64,11 @@ end
 
 function game:start()
 	game.isStarted = true
+	ball.spawn()
 end
 
 function game:getStartLocation()
    return game.playerStartLocationX, game.playerStartLocationY
 end
-
-function game:spawnBall()
-   game.ball = fizz.addDynamic('circle', 15, 15, 8)
-   game.ball.bounce = 0.8
-   function game.ball:onCollide(b, nx, ny, pen)
-    -- return false if you want to ignore the collision
-	  return true
-   end
-
-   function game.ball:update(dt)
-	  local vx, vy = fizz.getVelocity(game.ball)
-	  vx = vx + 1000*dt
-	  vy = vy + 1000*dt
-	  fizz.setVelocity(ball, vx, vy)
-   end
-end
-
 
 return game
