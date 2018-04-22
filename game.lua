@@ -71,7 +71,8 @@ function game:load_level(levelnum)
 			elseif tiletype == 2 then
 				currentWidth = currentWidth + 1
 				if curr_map[ptr + 1] ~= tiletype or j == map.width or currentWidth >= maxWidth then
-					fizz.addStatic("rect", x - (currentWidth * BLOCKSIZE / 2), y, (BLOCKSIZE / 2) * currentWidth, BLOCKSIZE / 2)
+					local rect = fizz.addStatic("rect", x - (currentWidth * BLOCKSIZE / 2), y, (BLOCKSIZE / 2) * currentWidth, BLOCKSIZE / 2)
+					rect.isDestructible = true
 					currentWidth = 0
 				end
 			elseif tiletype == 4 then
@@ -85,6 +86,8 @@ function game:load_level(levelnum)
 	--add left/right boundaries
 	fizz.addStatic("line", map.width * BLOCKSIZE, 0, map.width * BLOCKSIZE, map.height * BLOCKSIZE)
 	fizz.addStatic("line", 0, map.height * BLOCKSIZE, 0, 0)
+	local goal = fizz.addStatic("rect", 0, 0, map.width * BLOCKSIZE, BLOCKSIZE / 10)
+	goal.isGoal = true
 	self:initCamera()
 end
 
