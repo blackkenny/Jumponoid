@@ -19,7 +19,9 @@ function Player:create (x, y)
 end
 
 function Player:onCollide(b, nx, ny, pen)
-	--wall jumps in here?
+	if b.isGoal then
+		return false
+	end
 	return true
 end
 

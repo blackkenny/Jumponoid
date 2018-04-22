@@ -24,5 +24,9 @@ function Ball:onCollide(b, nx, ny, pen)
 		self:onDestructibleCollision(b)
 	end
 
+	if b.isGoal then
+		return true
+	end
+
 	return true
 end

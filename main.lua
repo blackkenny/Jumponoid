@@ -7,7 +7,7 @@ game = require("game")
 menu = require("menu")
 
 function love.load()
-   game:load_level(1)
+   game:load_levels()
    player = Player:create(game:getStartLocation())
 end
 
