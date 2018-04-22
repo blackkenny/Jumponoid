@@ -1,6 +1,8 @@
 Player = {}
 Player.__index = Player
 
+local isJumpButtonReady = true
+
 function Player:create (x, y)   
     local player = fizz.addDynamic('rect', x*BLOCKSIZE, y*BLOCKSIZE, BLOCKSIZE / 2, BLOCKSIZE / 2)
 	player.friction = 0.15
@@ -8,7 +10,9 @@ function Player:create (x, y)
 	-- player flags
 	player.grounded = false
 	player.jumping = false
+	player.doubleJumping = false
 	player.moving = false
+	player.isMidAir = false
 	
 	setmetatable(player, Player)
 	return player
@@ -19,12 +23,20 @@ function Player:onCollide(b, nx, ny, pen)
 	return true
 end
 
+function love.keyreleased(key)
+	if key == "space" then
+		print("Released space key")
+		isJumpButtonReady = true
+	end
+end
+
 -- process user input
 function Player:checkInput(dt)
 	-- get user input
 	local left = love.keyboard.isDown('left')
 	local right = love.keyboard.isDown('right')
 	local jump = love.keyboard.isDown('space')
+	
 
 	-- get player velocity
 	local vx, vy = fizz.getVelocity(self)
@@ -36,6 +48,8 @@ function Player:checkInput(dt)
 	if sy < 0 then
 		self.grounded = true
 		self.jumping = false
+		self.doubleJumping = false
+		self.isMidAir = false
 	end
 
 	-- running (horizontal movement)
@@ -55,16 +69,23 @@ function Player:checkInput(dt)
 	end
 
 	-- jumping (vertical movement)
-	if jump and not self.jumping and self.grounded then
+	if jump and not self.doubleJumping and self.isMidAir and isJumpButtonReady then
+		self.doubleJumping = true
+		vy = -INITJUMPV
+		isJumpButtonReady = false
+	elseif jump and not self.jumping and self.grounded and isJumpButtonReady then
 		-- initiating a jump
 		self.jumping = true
+		self.isMidAir = true
 		vy = -INITJUMPV
+		isJumpButtonReady = false
 	elseif not jump and self.jumping and not self.grounded then
 		-- terminating a jump
 		if self.yv < 0 and self.yv < -JUMPTERM then
 			vy = -JUMPTERM
 		end
 		self.jumping = false
+		self.doubleJumping = false
 	end
 
 	-- update player velocity
