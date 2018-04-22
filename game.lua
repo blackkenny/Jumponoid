@@ -40,23 +40,34 @@ function game:update(dt)
 
 end
 
-function game.load_level()
+function game:load_level(levelnum)
 	
-	local map = load_map()
+	local map = require("maps.map" .. levelnum)
 	
-	map_height = 35
-	map_width = #map/map_height
 	local ptr = 1
+	local prevBlock = 1
+	local currentWidth = 0
+	local maxWidth = 200
 	
-	for i = 1, map_height do
-		for j = 1, map_width do
-			local tiletype = map[ptr]
-			local x = (j * BLOCKSIZE) - BLOCKSIZE / 2
-			local y = (i * BLOCKSIZE) - BLOCKSIZE / 2
+	for i = 1, map.height do
+		for j = 1, map.width do
+			local curr_map = map.layers[1].data
+			local tiletype = curr_map[ptr]
+			local x = (j * BLOCKSIZE)
+			local y = (i * BLOCKSIZE)
+			
 			if tiletype == 2 then
-				fizz.addStatic("rect", x, y, BLOCKSIZE / 2, BLOCKSIZE / 2)
+				currentWidth = currentWidth + 1
+				if curr_map[ptr + 1] ~= tiletype or j == map.width or currentWidth >= maxWidth then
+					fizz.addStatic("rect", x - (currentWidth * BLOCKSIZE / 2), y, (BLOCKSIZE / 2) * currentWidth, BLOCKSIZE / 2)
+					currentWidth = 0
+				end
+			elseif tiletype == 4 then
+				game.playerStartLocationX = j
+				game.playerStartLocationY = i
 			end
 			ptr = ptr + 1
+			prevBlock = tiletype
 		end
 	end
 end
