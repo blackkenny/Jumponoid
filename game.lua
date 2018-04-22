@@ -18,9 +18,14 @@ local game = {
 	playerStartLocationY = 0,
 	mapHeight = 0,
 	mapWidth = 0,
+	score = 0,
 	camera = require("camera")
 }
 game.__index = game
+
+function game:setScore()
+	self.score = math.floor(math.max(self.score,math.abs(player.y - self.mapHeight)))
+end
 
 function game:initCamera()
 	self.camera.min = -self.mapHeight + love.graphics.getHeight()
@@ -43,6 +48,7 @@ function game:update(dt)
 			break
 		end
 	end
+	self:setScore()
 
 end
 
