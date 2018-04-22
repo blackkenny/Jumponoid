@@ -70,6 +70,9 @@ function game:load_level(levelnum)
 			prevBlock = tiletype
 		end
 	end
+	--add left/right boundaries
+	fizz.addStatic("line", map.width * BLOCKSIZE, 0, map.width * BLOCKSIZE, map.height * BLOCKSIZE)
+	fizz.addStatic("line", 0, map.height * BLOCKSIZE, 0, 0)
 end
 
 function game:start()
