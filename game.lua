@@ -4,6 +4,8 @@ require("ball")
 fizz = require("fizzx.fizz")
 fizz.setGravity(0, G)
 
+destructiblesToRemove = {}
+
 local game = {
 	isStarted = false,
 -- update interval in seconds
@@ -34,6 +36,7 @@ function game:update(dt)
 
 		-- update the simulation
 		fizz.update(self.interval)
+		game:removeDestructibles()
 		self.accum = self.accum - self.interval
 		steps = steps + 1
 		if steps >= self.maxsteps then
@@ -91,13 +94,26 @@ function game:load_level(levelnum)
 	self:initCamera()
 end
 
+function game:onDestructibleCollision(b)
+	destructiblesToRemove[#destructiblesToRemove + 1] = b
+end
+
 function game:start()
 	self.isStarted = true
-	ball = Ball:create(fizz, game.playerStartLocationY)
+	ball = Ball:create(fizz, game.playerStartLocationY, self.onDestructibleCollision)
 end
 
 function game:getStartLocation()
    return game.playerStartLocationX, game.playerStartLocationY
+end
+
+function game:removeDestructibles()
+	for i = #destructiblesToRemove, 1, -1 do
+		if destructiblesToRemove[i] then
+			fizz.removeShape(destructiblesToRemove[i])
+			destructiblesToRemove[i] = nil
+		end
+	end
 end
 
 return game
