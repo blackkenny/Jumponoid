@@ -3,8 +3,8 @@ Player.__index = Player
 
 local isJumpButtonReady = true
 
-function Player:create (x, y)   
-    local player = fizz.addDynamic('rect', x*BLOCKSIZE, y*BLOCKSIZE, BLOCKSIZE / 2, BLOCKSIZE / 2)
+function Player:create (x, y)
+    local player = fizz.addDynamic('rect', x, y, BLOCKSIZE / 2, BLOCKSIZE / 2)
 	player.friction = 0.15
 	player.isPlayer = true
 	-- player flags
