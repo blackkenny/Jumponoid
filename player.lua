@@ -25,7 +25,6 @@ end
 
 function love.keyreleased(key)
 	if key == "space" then
-		print("Released space key")
 		isJumpButtonReady = true
 	end
 end

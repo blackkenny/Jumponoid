@@ -6,12 +6,8 @@ local camera = {
 
 function camera:setViewport(y)
 	local camY = self.topDistance - y
-	print('max: ' .. self.max)
-	print('min: ' .. self.min)
-	print('y: ' .. camY)
 	camY = math.max(camY,self.min)
 	camY = math.min(camY,self.max)
-	print('y: ' .. camY)
 	love.graphics.translate(0, camY)
 end
 
