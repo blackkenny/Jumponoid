@@ -13,8 +13,10 @@ end
 
 function love.draw()
 	if not game.isStarted then
+		love.graphics.setBackgroundColor( 0, 0, 0 )
 		menu.draw()
 	else
+		love.graphics.setBackgroundColor( 135/255, 206/255, 235/255 )
 		game.camera:setViewport(player.y)
 		render()
 	end
