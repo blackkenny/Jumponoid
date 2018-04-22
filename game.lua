@@ -57,7 +57,8 @@ function game:load_level(levelnum)
 			local x = (j * BLOCKSIZE)
 			local y = (i * BLOCKSIZE)
 			
-			if tiletype == 2 then
+			if tiletype == 3 then
+			elseif tiletype == 2 then
 				currentWidth = currentWidth + 1
 				if curr_map[ptr + 1] ~= tiletype or j == map.width or currentWidth >= maxWidth then
 					fizz.addStatic("rect", x - (currentWidth * BLOCKSIZE / 2), y, (BLOCKSIZE / 2) * currentWidth, BLOCKSIZE / 2)
