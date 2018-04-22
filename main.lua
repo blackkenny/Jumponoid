@@ -1,7 +1,6 @@
 require("globalconst")
 require("renderer")
 require("controls")
-require("camera")
 require("player")
 
 game = require("game")
@@ -16,7 +15,7 @@ function love.draw()
 	if not game.isStarted then
 		menu.draw()
 	else
-		set_camera(player.y)
+		game.camera:setViewport(player.y)
 		render()
 	end
 end

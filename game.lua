@@ -12,12 +12,17 @@ local game = {
 	maxsteps = 5,
 	-- accumulator
 	accum = 0,
-
 	playerStartLocationX = 0,
-
 	playerStartLocationY = 0,
+	mapHeight = 0,
+	mapWidth = 0,
+	camera = require("camera")
 }
 game.__index = game
+
+function game:initCamera()
+	self.camera.min = -self.mapHeight + love.graphics.getHeight()
+end
 
 function game:update(dt)
 	local steps = 0
@@ -47,6 +52,9 @@ function game:load_level(levelnum)
 	local currentWidth = 0
 	local maxWidth = 200
 	
+	self.mapWidth = map.width * BLOCKSIZE
+	self.mapHeight = map.height * BLOCKSIZE
+	
 	for i = 1, map.height do
 		for j = 1, map.width do
 			local curr_map = map.layers[1].data
@@ -67,8 +75,8 @@ function game:load_level(levelnum)
 					currentWidth = 0
 				end
 			elseif tiletype == 4 then
-				game.playerStartLocationX = j
-				game.playerStartLocationY = i
+				game.playerStartLocationX = x
+				game.playerStartLocationY = y
 			end
 			ptr = ptr + 1
 			prevBlock = tiletype
@@ -77,10 +85,11 @@ function game:load_level(levelnum)
 	--add left/right boundaries
 	fizz.addStatic("line", map.width * BLOCKSIZE, 0, map.width * BLOCKSIZE, map.height * BLOCKSIZE)
 	fizz.addStatic("line", 0, map.height * BLOCKSIZE, 0, 0)
+	self:initCamera()
 end
 
 function game:start()
-	game.isStarted = true
+	self.isStarted = true
 	ball = Ball:create(fizz, game.playerStartLocationY)
 end
 
