@@ -30,7 +30,7 @@ function game:update(dt)
 
 		-- update the simulation
 		fizz.update(self.interval)
-		-- self.ball.update(dt)
+		ball:update(dt)
 
 		self.accum = self.accum - self.interval
 		steps = steps + 1
@@ -79,7 +79,7 @@ end
 
 function game:start()
 	game.isStarted = true
-	ball.spawn()
+	ball:spawn(game.playerStartLocationY)
 end
 
 function game:getStartLocation()

@@ -1,7 +1,7 @@
 local screenWidth = love.graphics.getWidth()
 BLOCKSIZE = screenWidth / 25
 -- jump heights
-local maxjumpH = BLOCKSIZE*5
+local maxjumpH = BLOCKSIZE*4
 local minjumpH = BLOCKSIZE*1
 -- jump time to apex
 local maxjumpT = 0.4

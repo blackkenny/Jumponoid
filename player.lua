@@ -4,6 +4,7 @@ Player.__index = Player
 function Player:create (x, y)   
     local player = fizz.addDynamic('rect', x*BLOCKSIZE, y*BLOCKSIZE, BLOCKSIZE / 2, BLOCKSIZE / 2)
 	player.friction = 0.15
+	player.isPlayer = true
 	-- player flags
 	player.grounded = false
 	player.jumping = false
@@ -41,9 +42,9 @@ function Player:checkInput(dt)
 	self.moving = left or right
 	if self.moving then
 		-- movement vector
-		local move = 1000
+		local move = 3000
 		if left then
-			move = -1000
+			move = -3000
 		end
 		-- slower movement while in the air
 		if not self.grounded then
