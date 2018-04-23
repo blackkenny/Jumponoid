@@ -6,7 +6,7 @@ COMPANY_NAME := "Ludum Dare"
 GAME_NAME := "Jumponoid"
 
 $(GAME_NAME).love: main.lua conf.lua
-	zip -9 -r $(GAME_NAME).love *.lua fonts/*.ttf images/*.png
+	zip -9 -r $(GAME_NAME).love *.lua fonts/*.ttf images/*.png sounds/*
 
 #I will need to make a lot of different targets for individual distros
 lin: $(GAME_NAME).love
@@ -15,9 +15,9 @@ lin: $(GAME_NAME).love
 
 win: $(GAME_NAME).love
 	mkdir -p win32
-	cat ../platform_dependencies/win32/love.exe $(GAME_NAME).love > ./win32/$(GAME_NAME).exe
-	cp ../platform_dependencies/win32/license.txt win32/license.txt
-	cp ../platform_dependencies/win32/*.dll win32/
+	cat platform_dependencies/win32/love.exe $(GAME_NAME).love > ./win32/$(GAME_NAME).exe
+	cp platform_dependencies/win32/license.txt win32/license.txt
+	cp platform_dependencies/win32/*.dll win32/
 
 mac: $(GAME_NAME).love
 	mkdir -p mac

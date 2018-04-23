@@ -19,7 +19,8 @@ local game = {
 	mapHeight = 0,
 	mapWidth = 0,
 	score = 0,
-	camera = require("camera")
+	camera = require("camera"),
+	fonts = require("fonts")
 }
 game.__index = game
 
@@ -49,7 +50,6 @@ function game:update(dt)
 		end
 	end
 	self:setScore()
-
 end
 
 function game:load_levels()

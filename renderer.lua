@@ -25,11 +25,10 @@ end
 
 function drawScore()
 	love.graphics.setColor(0, 0, 0, 255)
-	scoreFont = love.graphics.newFont(20)
-	love.graphics.setFont(scoreFont)
+	love.graphics.setFont(game.fonts.scoreFont)
 	local y = player.y - game.camera.topDistance
-	-- y = math.min(y, player.y - love.graphics.getHeight())
-	love.graphics.print(game.score, 10, y)
+	y = math.min(y, math.abs(game.camera.min))
+	love.graphics.print(game.score, BLOCKSIZE / 20, y)
 end
 
 function drawObject(v, r, g, b)
