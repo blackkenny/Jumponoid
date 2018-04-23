@@ -59,7 +59,6 @@ function game:load_levels()
 end
 
 function game:load_level(levelnum, offset)
-	print(levelnum)
 	local map = require("maps.map" .. levelnum)
 	
 	local ptr = 1
@@ -68,7 +67,6 @@ function game:load_level(levelnum, offset)
 	
 	self.mapWidth = map.width * BLOCKSIZE
 	self.mapHeight = self.mapHeight + map.height * BLOCKSIZE
-	print(self.mapHeight)
 	
 	for i = 1, map.height do
 		for j = 1, map.width do

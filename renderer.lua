@@ -1,6 +1,7 @@
 playerImage = love.graphics.newImage( "images/player.png" )
 blockImage = love.graphics.newImage( "images/block.png" )
 ballImage = love.graphics.newImage( "images/ball.png" )
+levelboundaryImage = love.graphics.newImage( "images/levelboundary.png" )
 
 function render()
 	local lg = love.graphics
@@ -35,15 +36,16 @@ function drawObject(v, r, g, b)
 	local lg = love.graphics
 	if v.shape == 'rect' then
 		local x, y, w, h = v.x, v.y, v.hw, v.hh
-		if v.isPlayer then 
+		if v.isPlayer then
 			lg.setColor(1, 1, 1, 255)
 			drawImage(playerImage, x, y - BLOCKSIZE / 5, w * 2, h * 2)
+		elseif v.isGoal then
+			lg.setColor(1, 0, 0, 255)
+			drawImage(levelboundaryImage, x, y, w * 2, h * 2)
 		else
 			lg.setColor(1, 0, 0, 255)
 			drawImage(blockImage, x, y, w * 2, h * 2)
 		end
-		-- lg.setColor(r, g, b, 255)
-		-- lg.rectangle("line", x - w, y - h, w*2, h*2)
 	elseif v.shape == 'circle' then
 		local x, y, radius = v.x, v.y, v.r
 		lg.setColor(1, 60/255, 0, 1)
